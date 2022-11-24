@@ -1,22 +1,51 @@
 package com.mygroup.kata.config;
 
-import com.mygroup.kata.security.AuthProviderImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final AuthProviderImpl authProvider;
+    private final UserDetailsService userDetailsService;
+    private final SuccessUserHandler successUserHandler;
 
     @Autowired
-    public SecurityConfig(AuthProviderImpl authProvider) {
-        this.authProvider = authProvider;
+    public SecurityConfig(UserDetailsService userDetailsService, SuccessUserHandler successUserHandler) {
+        this.userDetailsService = userDetailsService;
+        this.successUserHandler = successUserHandler;
     }
 
     // Настраивает аутентификацию
-    protected void configure(AuthenticationManagerBuilder auth) {
-        auth.authenticationProvider(authProvider);
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService);
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .antMatchers("/", "/auth/registration").permitAll()
+                .antMatchers("/user").hasAnyRole("USER", "ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .formLogin().successHandler(successUserHandler)
+                .permitAll()
+                .and()
+                .logout().
+                logoutUrl("/login")
+                .logoutSuccessUrl("/");
+    }
+
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
     }
 }
