@@ -32,7 +32,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void updateUser(Long id, User updateUser) {
         User upUser = getUserById(id);
-        upUser.setName(updateUser.getName());
+        upUser.setUsername(updateUser.getUsername());
         upUser.setSurname(updateUser.getSurname());
         upUser.setAge(updateUser.getAge());
         entityManager.merge(upUser);
