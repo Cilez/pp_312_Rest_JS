@@ -1,19 +1,19 @@
 package com.mygroup.kata.service;
 
 
-
 import com.mygroup.kata.model.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface UserService {
-    List<User> getAllUsers();
-
-    void saveUser(User user);
+public interface UserService extends UserDetailsService {
+    void addUser(User user);
 
     void deleteUser(Long id);
 
+    void editUser(User user);
+
     User getUserById(Long id);
 
-    void updateUser(Long id, User updatedUser);
+    List<User> getAllUsers();
 }
