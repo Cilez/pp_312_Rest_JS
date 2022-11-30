@@ -3,7 +3,9 @@ package com.mygroup.kata.control;
 
 import com.mygroup.kata.model.Role;
 import com.mygroup.kata.model.User;
+import com.mygroup.kata.service.RoleService;
 import com.mygroup.kata.service.RoleServiceImpl;
+import com.mygroup.kata.service.UserService;
 import com.mygroup.kata.service.UserServiceImpl;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,13 +23,13 @@ import java.util.Set;
 public class AdminController {
 
 
-    private UserServiceImpl userService;
+    private UserService userService;
 
-    private RoleServiceImpl roleService;
+    private RoleService roleService;
 
     private BCryptPasswordEncoder passwordEncoder;
 
-    public AdminController(UserServiceImpl userService, RoleServiceImpl roleService, BCryptPasswordEncoder passwordEncoder) {
+    public AdminController(UserService userService, RoleService roleService, BCryptPasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
