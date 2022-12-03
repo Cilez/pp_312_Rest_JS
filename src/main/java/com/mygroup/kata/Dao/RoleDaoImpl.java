@@ -1,8 +1,7 @@
-package com.mygroup.kata.repository;
+package com.mygroup.kata.Dao;
 
 
 import com.mygroup.kata.model.Role;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -10,7 +9,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service
-public class RoleRepositoryImpl implements RoleRepository{
+public class RoleDaoImpl implements RoleDao {
     @PersistenceContext
     private EntityManager entityManager;
     @Override

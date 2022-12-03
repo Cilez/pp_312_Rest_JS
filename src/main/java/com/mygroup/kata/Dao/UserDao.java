@@ -1,4 +1,4 @@
-package com.mygroup.kata.repository;
+package com.mygroup.kata.Dao;
 
 
 import com.mygroup.kata.model.User;
@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.List;
 
 
-public interface UserRepository {
+public interface UserDao {
     void addUser(User user);
 
     void deleteUser(Long id);

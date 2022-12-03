@@ -2,7 +2,7 @@ package com.mygroup.kata.service;
 
 
 import com.mygroup.kata.model.User;
-import com.mygroup.kata.repository.UserRepository;
+import com.mygroup.kata.Dao.UserDao;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -14,11 +14,11 @@ import java.util.List;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
+    private final UserDao userDao;
 
 
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
 
     }
 
@@ -26,32 +26,32 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addUser(User user) {
-        userRepository.addUser(user);
+        userDao.addUser(user);
     }
 
     @Override
     public void deleteUser(Long id) {
-        userRepository.deleteUser(id);
+        userDao.deleteUser(id);
     }
 
     @Override
     public void editUser(User user) {
-        userRepository.editUser(user);
+        userDao.editUser(user);
     }
     @Transactional(readOnly=true)
     @Override
     public User getUserById(Long id) {
-        return userRepository.getUserById(id);
+        return userDao.getUserById(id);
     }
     @Transactional(readOnly=true)
     @Override
     public List<User> getAllUsers() {
-        return userRepository.getAllUsers();
+        return userDao.getAllUsers();
     }
     @Transactional(readOnly=true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.getUserByUsername(username);
+        return userDao.getUserByUsername(username);
     }
 }
 

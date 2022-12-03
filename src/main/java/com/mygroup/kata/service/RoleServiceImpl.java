@@ -2,7 +2,7 @@ package com.mygroup.kata.service;
 
 
 import com.mygroup.kata.model.Role;
-import com.mygroup.kata.repository.RoleRepository;
+import com.mygroup.kata.Dao.RoleDao;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,28 +12,28 @@ import java.util.List;
 @Transactional
 public class RoleServiceImpl implements RoleService {
 
-    private final RoleRepository roleRepository;
+    private final RoleDao roleDao;
 
-    public RoleServiceImpl(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
+    public RoleServiceImpl(RoleDao roleDao) {
+        this.roleDao = roleDao;
     }
     @Override
     public void addRole(Role role) {
-        roleRepository.addRole(role);
+        roleDao.addRole(role);
     }
 
     public List<Role> getAllRoles() {
-        return roleRepository.getAllRoles();
+        return roleDao.getAllRoles();
     }
 
     @Transactional(readOnly=true)
     @Override
     public Role getRoleById(Long id) {
-        return roleRepository.getRoleById(id);
+        return roleDao.getRoleById(id);
     }
     @Override
     public Role getRoleByName(String name) {
-        return roleRepository.getRoleByName(name);
+        return roleDao.getRoleByName(name);
     }
 
 }

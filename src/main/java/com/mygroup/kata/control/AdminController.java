@@ -38,18 +38,19 @@ public class AdminController {
     @GetMapping("/allUsers")
     public String allUsers(@AuthenticationPrincipal User user, Model model){
         List<User> users = userService.getAllUsers();
-        model.addAttribute("users", users);
-        model.addAttribute("user", user);
+//        users.add(user);
+//        model.addAttribute("users", users);
+        model.addAttribute("user", users);
         model.addAttribute("roles", roleService.getAllRoles());
 
         return "allUsers";
     }
-    @GetMapping(value = "create")
+    @GetMapping(value = "/create")
     public String addUser(Model model) {
         model.addAttribute("user", new User());
         return "add";
     }
-    @PostMapping(value = "add")
+    @PostMapping(value = "/add")
     public String createUser(@ModelAttribute("user") User user,
                               @RequestParam(required=false) String roleAdmin) {
         Set<Role> roles = new HashSet<>();
@@ -80,7 +81,7 @@ public class AdminController {
 
 
 
-    @DeleteMapping ("{id}")
+    @DeleteMapping ("/{id}")
     public String delete(@PathVariable("id") Long id){
         userService.deleteUser(id);
         return "redirect:/admin/allUsers";
