@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/Navbar-Centered-Brand-Dark-icons.css">
+</head>
+
+<body style="margin-top: -2px;">
+    <nav class="navbar navbar-dark navbar-expand-md bg-dark py-3" style="background: rgb(33, 37, 41);">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="#"></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-6"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse flex-grow-0 order-md-first" id="navcol-6">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#">First Item</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Second Item</a></li>
+                </ul>
+                <div class="d-md-none my-2"><button class="btn btn-light me-2" type="button">Button</button><button class="btn btn-primary" type="button">Button</button></div>
+            </div>
+            <div class="d-none d-md-block"><button class="btn btn-primary" type="button" style="background: #212529;color: var(--bs-gray-500);border-style: none;">Button</button></div>
+        </div>
+    </nav>
+    <div class="container" style="position: relative;min-height: 500px;">
+        <div class="row">
+            <div class="col-md-2 offset-md-0 mt-md-0 pt-md-2" style="height: 500px;">
+                <aside><div class="row">
+  <div class="col-12">
+    <div class="list-group" id="list-tab" role="tablist">
+      <a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">Admin</a>      
+      <a class="list-group-item list-group-item-action" id="list-messages-list" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">User</a>
+    </div>
+  </div>
+</div></aside>
+            </div>
+            <div class="col" style="color: var(--bs-navbar-disabled-color);"><p class="fw-bolder"><h2>Admin panel</h2></p>
+                <div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-bs-toggle="tab" href="#tab-1">Users table</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-2">New User</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" role="tabpanel" id="tab-1">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">All users</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Age</th>
+                                                    <th>Email</th>
+                                                    <th>Role</th>
+                                                    <th>Edit</th>
+                                                    <th>Delete</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Cell 1</td>
+                                                    <td>Cell 2</td>
+                                                    <td>Cell 2</td>
+                                                    <td>Cell 2</td>
+                                                    <td>Cell 2</td>
+                                                    <td>Cell 2</td>
+                                                    <td>
+                                                        <div class="modal fade" role="dialog" tabindex="-1" id="editModal">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title">Edit user</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body"><label class="form-label" style="display: grid;text-align: center;font-weight: bold;">ID<input type="number"></label><label class="form-label" style="display: grid;text-align: center;font-weight: bold;">First name<input type="text"></label><label class="form-label" style="display: grid;text-align: center;font-weight: bold;">Last name<input type="text"></label><label class="form-label" style="display: grid;text-align: center;font-weight: bold;">Age<input type="text"></label><label class="form-label" style="display: grid;text-align: center;font-weight: bold;">Email<input type="email"></label><label class="form-label" style="display: grid;text-align: center;font-weight: bold;">Password<input type="password"></label><label class="form-label" style="display: grid;text-align: center;font-weight: bold;">Role<select class="form-select" th:value="*{roles[0].role}" name="roles" multiple="" size="2">
+    <option value="1">User</option>
+    <option value="2">Admin</option>
+</select>
+</label></div>
+                                                                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Edit</button></div>
+                                                                </div>
+                                                            </div>
+                                                        </div><button class="btn btn-primary" type="button" style="color: var(--bs-card-bg);background: var(--bs-teal);" data-bs-target="#editModal" data-bs-toggle="modal">Edit</button>
+                                                    </td>
+                                                    <td>
+                                                        <div class="modal fade" role="dialog" tabindex="-1" id="deleteModal">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title">Delete user</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body"><label class="form-label" style="display: grid;text-align: center;font-weight: bold;">ID<input type="number"></label><label class="form-label" style="display: grid;text-align: center;font-weight: bold;">First name<input type="text"></label><label class="form-label" style="display: grid;text-align: center;font-weight: bold;">Last name<input type="text"></label><label class="form-label" style="display: grid;text-align: center;font-weight: bold;">Age<input type="text"></label><label class="form-label" style="display: grid;text-align: center;font-weight: bold;">Email<input type="email"></label><label class="form-label" style="display: grid;text-align: center;font-weight: bold;">Role<select class="form-select" th:value="*{roles[0].role}" name="roles" multiple="" size="2">
+    <option value="1">User</option>
+    <option value="2">Admin</option>
+</select>
+</label></div>
+                                                                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button" style="background: var(--bs-red);">Delete</button></div>
+                                                                </div>
+                                                            </div>
+                                                        </div><button class="btn btn-primary" type="button" style="background: var(--bs-red);" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" role="tabpanel" id="tab-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Add new user</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-7"><label class="form-label" style="text-align: center;display: grid;font-weight: bold;">First name<input type="text"></label><label class="form-label" style="text-align: center;display: grid;font-weight: bold;">Last name<input type="text"></label><label class="form-label" style="text-align: center;display: grid;font-weight: bold;">Age<input type="number"></label><label class="form-label" style="text-align: center;display: grid;font-weight: bold;">Email<input type="email"></label><label class="form-label" style="text-align: center;display: grid;font-weight: bold;">Password<input type="password"></label><label class="form-label" style="text-align: center;display: grid;font-weight: bold;">Role<select class="form-select" th:value="*{roles[0].role}" name="roles" multiple="" size="2">
+    <option value="1">User</option>
+    <option value="2">Admin</option>
+</select>
+</label>
+                                            <div style="text-align: center;"><button class="btn btn-primary" type="button" style="background: var(--bs-green);">Add new user</button></div>
+                                        </div>
+                                        <div class="col"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
