@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,19 +32,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
                 .authorizeRequests()
-                //Доступ только для не зарегистрированных пользователей
-                .antMatchers("/login").not().fullyAuthenticated()
-                //Доступ только для пользователей с ролью Администратор
-                .antMatchers("/admin/**", "/add", "/edit","/").hasRole("ADMIN")
-                //Доступ для юзера
-                .antMatchers("/user/**", "/").hasAnyRole("ADMIN", "USER")
                 //Доступ разрешен всем пользователей
                 .antMatchers("/").permitAll()
                 .antMatchers("/registration").permitAll()
-                .antMatchers("/index").permitAll()
+                .antMatchers("/assets/**").permitAll()
+                //Доступ только для не зарегистрированных пользователей
+                .antMatchers("/login").not().fullyAuthenticated()
+                //Доступ только для пользователей с ролью Администратор
+                .antMatchers("/admin/**", "/add", "/edit").hasRole("ADMIN")
+                //Доступ для юзера
+                .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
+                .anyRequest().permitAll()
 
                 //Все остальные страницы требуют аутентификации
-                .anyRequest().authenticated()
+//                .anyRequest().authenticated()
                 .and()
                 //Настройка для входа в систему
                 .formLogin().successHandler(successUserHandler)
@@ -58,6 +60,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //без этого почему-то не работает
                 .csrf().disable();
     }
+
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web
+//                .ignoring()
+//                .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/img/**", "/icon/**");
+//    }
 
 
     @Bean
