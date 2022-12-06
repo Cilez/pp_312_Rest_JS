@@ -16,6 +16,8 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String username;
+    private String lastName;
+    private int age;
     private String password;
     @ManyToMany
     @JoinTable(
@@ -25,17 +27,44 @@ public class User implements UserDetails {
     )
     private Set<Role> roles;
 
+    private String email;
 
-    public User(){
 
+    public User() {
+
+    }
+
+    public User(String username, String lastName, int age, String password, Set<Role> roles, String email) {
+        this.username = username;
+        this.password = password;
+        this.age = age;
+        this.lastName = lastName;
+        this.roles = roles;
+        this.email = email;
     }
 
     public Set<Role> getRoles() {
         return roles;
     }
 
+    public String getAllRoles() {
+        String result = "";
+        for(Role e : getRoles()) {
+            result += e.getName();
+        }
+        return result;
+    }
+
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public Long getId() {
@@ -48,6 +77,14 @@ public class User implements UserDetails {
 
     public String getUsername() {
         return username;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     @Override
@@ -88,23 +125,12 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-
-    public User(String username, String password, Set<Role> roles) {
-        this.username = username;
-        this.password = password;
-        this.roles = roles;
+    public String getEmail() {
+        return email;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(username, user.username) ;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(username);
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
+

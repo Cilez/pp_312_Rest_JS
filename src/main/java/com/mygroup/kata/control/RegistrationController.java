@@ -8,9 +8,7 @@ import com.mygroup.kata.service.UserService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -46,6 +44,12 @@ public class RegistrationController {
         userService.addUser(user);
         return "redirect:/";
     }
+
+//    @GetMapping("/")
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String redirect() {
+        return "redirect:/boot/index";
+    } // делает пыр-пыр, при заходе на сервер
 
 
 }
