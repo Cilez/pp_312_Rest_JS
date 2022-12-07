@@ -4,9 +4,7 @@ package com.mygroup.kata.control;
 import com.mygroup.kata.model.Role;
 import com.mygroup.kata.model.User;
 import com.mygroup.kata.service.RoleService;
-import com.mygroup.kata.service.RoleServiceImpl;
 import com.mygroup.kata.service.UserService;
-import com.mygroup.kata.service.UserServiceImpl;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,9 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 @Controller
@@ -69,7 +65,7 @@ public class AdminController {
 
     @GetMapping (value = "/edit/{id}")
     public String editUser(Model model, @PathVariable("id") Long id) {
-        User user = userService.getUserById(id);
+        User user = userService.findUserById(id).get();
         model.addAttribute("user", user);
         return "edit";
     }

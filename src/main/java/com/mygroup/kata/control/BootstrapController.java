@@ -2,19 +2,17 @@ package com.mygroup.kata.control;
 
 import com.mygroup.kata.model.Role;
 import com.mygroup.kata.model.User;
+import com.mygroup.kata.model.UserCreationDTO;
 import com.mygroup.kata.service.RoleService;
 import com.mygroup.kata.service.UserService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/boot")
@@ -41,7 +39,7 @@ public class BootstrapController {
 
     @GetMapping("/edit/{id}")
     public String userForm(Model model, @PathVariable("id") Long id) {
-        User user = userService.getUserById(id);
+        User user = userService.findUserById(id).get();
         model.addAttribute("userFromForm", user);
         return "edit";
     }
@@ -57,24 +55,42 @@ public class BootstrapController {
         userService.editUser(user);
     }
 
+    @GetMapping("/create")
+    public String addUser(Model model) {
+        UserCreationDTO udto = new UserCreationDTO();
+        for (int i = 1; i < 3; i++) {
+            udto.addUser(new User());
+        }
+        model.addAttribute("user", udto);
+        return "boot/createUserForm";
+    }
 
+    // new
+    @RequestMapping(value = "/update", method = {RequestMethod.PUT, RequestMethod.GET})
+    public String updateUser(@ModelAttribute User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userService.addUser(user);
+        return "redirect:index";
+    }
+
+    // new add
     @PostMapping("/add")
-    public String createUser(@ModelAttribute("user") User user, @RequestParam(required = false) String roleAdmin) {
+    public String addNewUser(@ModelAttribute("user") User user) {
         List<Role> roles = new ArrayList<>();
         roles.add(roleService.getRoleById(2L));
-        if(roleAdmin != null && roleAdmin.equals("ROLE_ADMIN")) {
-            roles.add(roleService.getRoleById(1L));
-        }
         user.setRoles(roles);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.addUser(user);
-        return "boot/index";
+        return "redirect:index";
 
     }
 
-    @GetMapping(value = "/create")
-    public String addUser(Model model) {
-        model.addAttribute("user", new User());
-        return "boot/index";
+    // new
+    @RequestMapping("/getOne")
+    @ResponseBody
+    public User getOne(Long id) {
+        User user = userService.findUserById(id).get();
+        user.setRoles(new ArrayList<>());
+        return user;
     }
 }
