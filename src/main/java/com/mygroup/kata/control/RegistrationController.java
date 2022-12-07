@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -38,7 +40,7 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String addUser(@ModelAttribute("user") User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Set<Role> roles = new HashSet<>();
+        List<Role> roles = new ArrayList<>();
         roles.add(roleService.getRoleById(2L));
         user.setRoles(roles);
         userService.addUser(user);

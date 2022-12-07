@@ -9,6 +9,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,8 +36,8 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
             roleService.addRole(new Role("ROLE_USER"));
             Role admin = roleService.getRoleById(1L);
             Role user = roleService.getRoleById(2L);
-            Set<Role> adminRole = new HashSet<>();
-            Set<Role> userRole = new HashSet<>();
+            List<Role> adminRole = new ArrayList<>();
+            List<Role> userRole = new ArrayList<>();
             adminRole.add(admin);
             userRole.add(user);
             String  email = "my@email.com";
