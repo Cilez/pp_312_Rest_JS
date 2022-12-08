@@ -1,5 +1,6 @@
 package com.mygroup.kata.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ public class Role implements GrantedAuthority {
     private Long id;
     private String name;
     @ManyToMany(mappedBy = "roles")
+    @JsonBackReference
     private Set<User> users;
 
 
@@ -75,5 +77,9 @@ public class Role implements GrantedAuthority {
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    public void setUsersSet(Set<User> usersSet) {
+        this.users = usersSet;
     }
 }

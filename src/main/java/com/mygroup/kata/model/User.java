@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
@@ -46,6 +47,7 @@ public class User implements UserDetails {
         this.username = username;
         this.password = password;
         this.age = age;
+//        roles.forEach(role -> role.setUsersSet(Collections.singleton(this)));
         this.roles = roles;
     }
 
