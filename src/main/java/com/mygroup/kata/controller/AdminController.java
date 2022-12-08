@@ -2,7 +2,9 @@ package com.mygroup.kata.controller;
 
 
 import com.mygroup.kata.model.User;
+import com.mygroup.kata.service.RoleService;
 import com.mygroup.kata.service.RoleServiceImpl;
+import com.mygroup.kata.service.UserService;
 import com.mygroup.kata.service.UserServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,16 +19,15 @@ import java.util.Set;
 public class AdminController {
 
 
-    private UserServiceImpl userService;
+    private UserService userService;
 
-    private RoleServiceImpl roleService;
+    private RoleService roleService;
 
 
 
-    public AdminController(UserServiceImpl userService, RoleServiceImpl roleService) {
+    public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
         this.roleService = roleService;
-
     }
 
     @GetMapping("/allUsers")
@@ -36,9 +37,6 @@ public class AdminController {
         model.addAttribute("newUser", new User());
         model.addAttribute("user", user);
         model.addAttribute("roles", roleService.getAllRoles());
-
-
-
         return "allUsers";
     }
 
@@ -67,13 +65,6 @@ public class AdminController {
         userService.editUser(user);
         return "redirect:/admin/allUsers";
     }
-     /*@PatchMapping("/edit/{id}")
-    public String updateUser(@ModelAttribute("user") User user, @RequestParam(value = "role") String role) {
-        user.setRoles(Set.of(roleService.getRoleByName(role)));
-        userService.editUser(user);
-        return "redirect:/admin/allUsers";
-    }*/
-
 
 
     @DeleteMapping ("/delete/{id}")
