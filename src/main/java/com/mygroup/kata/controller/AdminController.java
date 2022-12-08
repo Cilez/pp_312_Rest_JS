@@ -3,9 +3,7 @@ package com.mygroup.kata.controller;
 
 import com.mygroup.kata.model.User;
 import com.mygroup.kata.service.RoleService;
-import com.mygroup.kata.service.RoleServiceImpl;
 import com.mygroup.kata.service.UserService;
-import com.mygroup.kata.service.UserServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +35,7 @@ public class AdminController {
         model.addAttribute("newUser", new User());
         model.addAttribute("user", user);
         model.addAttribute("roles", roleService.getAllRoles());
-        return "allUsers";
+        return "OLDallUsers";
     }
 
     @PostMapping(value = "/add")

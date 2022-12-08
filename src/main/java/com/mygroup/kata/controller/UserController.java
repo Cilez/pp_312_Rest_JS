@@ -21,7 +21,7 @@ public class UserController {
     public String getUserPage(ModelMap modelMap, Principal principal) {
         var a = userService.findUserByName(principal.getName());
         modelMap.addAttribute("user", a);
-        return "oneUser";
+        return "OLDoneUser";
     }
 
 //    @GetMapping("oneUser")
