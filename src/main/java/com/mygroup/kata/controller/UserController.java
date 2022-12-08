@@ -31,6 +31,7 @@ public class UserController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String redirect() {
-        return "redirect:/login";
+//        return "redirect:/login";
+        return "redirect:/allUsers";
     } // делает пыр-пыр, при заходе на сервер
 }
