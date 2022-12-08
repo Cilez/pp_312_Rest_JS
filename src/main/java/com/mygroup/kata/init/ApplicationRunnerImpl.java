@@ -6,24 +6,24 @@ import com.mygroup.kata.service.RoleService;
 import com.mygroup.kata.service.UserService;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Component
 public class ApplicationRunnerImpl implements ApplicationRunner {
-    private final UserService userService;
-    private final BCryptPasswordEncoder passwordEncoder;
 
-    private final RoleService roleService;
 
-    public ApplicationRunnerImpl(UserService userService, BCryptPasswordEncoder passwordEncoder, RoleService roleService) {
+    private UserService userService;
+
+
+    private RoleService roleService;
+
+    public ApplicationRunnerImpl(UserService userService, RoleService roleService) {
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
+
         this.roleService = roleService;
     }
 
@@ -36,17 +36,15 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
             roleService.addRole(new Role("ROLE_USER"));
             Role admin = roleService.getRoleById(1L);
             Role user = roleService.getRoleById(2L);
-            List<Role> adminRole = new ArrayList<>();
-            List<Role> userRole = new ArrayList<>();
+            Set<Role> adminRole = new HashSet<>();
+            Set<Role> userRole = new HashSet<>();
             adminRole.add(admin);
             userRole.add(user);
-            String  email = "my@email.com";
-            String lastName = "MyLastName";
-            userService.addUser(new User( "Sergey", lastName, 10, passwordEncoder.encode("admin"), adminRole, email));
-            userService.addUser(new User( "Dima", lastName, 11, passwordEncoder.encode("user"), userRole, email));
-            userService.addUser(new User("Kostya", lastName, 12, passwordEncoder.encode("dimab"),  userRole, email));
-            userService.addUser(new User("vasyap", lastName, 13, passwordEncoder.encode("vasyap"), userRole, email));
-            userService.addUser(new User("vasyap", lastName, 14, passwordEncoder.encode("kostyag"), userRole, email));
+            userService.addUser(new User( "Misha", ("admin"),23, adminRole, "Admin", "misha@email.com" ));
+            userService.addUser(new User( "Dima", ("user"), 32, userRole, "User", "dima@email.com"));
+            userService.addUser(new User("Kostya", ("dimab"), 54,  userRole));
+            userService.addUser(new User("vasyap", ("vasyap"),12, userRole));
+            userService.addUser(new User("kostyap", ("kostyag"),10,userRole));
 
         }
     }

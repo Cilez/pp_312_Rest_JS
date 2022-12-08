@@ -1,5 +1,6 @@
 package com.mygroup.kata.configs;
 
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -19,9 +20,9 @@ public class SuccessUserHandler implements AuthenticationSuccessHandler {
         if (roles.contains("ROLE_ADMIN")) {
             httpServletResponse.sendRedirect("/admin/allUsers");
         } else if (roles.contains("ROLE_USER")) {
-            httpServletResponse.sendRedirect("/user/oneUser");
+            httpServletResponse.sendRedirect("/oneUser");
         } else {
-            httpServletResponse.sendRedirect("/index");
+            httpServletResponse.sendRedirect("/login");
         }
     }
 }

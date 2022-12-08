@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,47 +16,59 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String username;
-    private String lastName;
-    private int age;
     private String password;
+    private int age;
+    private String lastName;
+    private String email;
+
     @ManyToMany
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private List<Role> roles;
+    private Set<Role> roles;
 
-    private String email;
+    public String getRolesString() {
+        StringBuilder str = new StringBuilder();
+        for (Role role : roles) {
+            str.append(role + " ");
+        }
+        return str.toString();
+    }
 
 
-    public User() {
+    public User(){
 
     }
 
-    public User(String username, String lastName, int age, String password, List<Role> roles, String email) {
+    public User(String username, String password, int age, Set<Role> roles) {
         this.username = username;
         this.password = password;
         this.age = age;
-        this.lastName = lastName;
         this.roles = roles;
+    }
+
+    public User(String username, String password, int age, Set<Role> roles, String lastName, String email) {
+        this(username, password, age, roles);
+        this.lastName = lastName;
         this.email = email;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public String getLastName() {
+        return lastName;
     }
 
-    public String getAllRoles() {
-        String result = "";
-        for(Role e : getRoles()) {
-            result += e.getName();
-        }
-        return result;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getAge() {
@@ -66,6 +77,14 @@ public class User implements UserDetails {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -78,14 +97,6 @@ public class User implements UserDetails {
 
     public String getUsername() {
         return username;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     @Override
@@ -126,13 +137,16 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(username, user.username) ;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public int hashCode() {
+        return Objects.hash(username);
     }
-
 }
-

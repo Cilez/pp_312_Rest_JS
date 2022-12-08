@@ -1,18 +1,19 @@
-package com.mygroup.kata.Dao;
-
+package com.mygroup.kata.dao;
 
 import com.mygroup.kata.model.User;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Service
+@Repository
 public class UserDaoImpl implements UserDao {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+
 
     @Override
     public void addUser(User user) {
@@ -33,12 +34,11 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void editUser(User user) {
-        entityManager.merge(user);
-    }
+    public void editUser(User user) {entityManager.merge(user);}
+
 
     @Override
-    public User findUserById(Long id) {
+    public User getUserById(Long id) {
         return entityManager.find(User.class, id);
     }
 

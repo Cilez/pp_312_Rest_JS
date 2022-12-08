@@ -1,8 +1,7 @@
 package com.mygroup.kata.service;
 
-
+import com.mygroup.kata.dao.RoleDao;
 import com.mygroup.kata.model.Role;
-import com.mygroup.kata.Dao.RoleDao;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +11,7 @@ import java.util.List;
 @Transactional
 public class RoleServiceImpl implements RoleService {
 
-    private final RoleDao roleDao;
+    private RoleDao roleDao;
 
     public RoleServiceImpl(RoleDao roleDao) {
         this.roleDao = roleDao;

@@ -1,32 +1,34 @@
 package com.mygroup.kata.service;
 
-
+import com.mygroup.kata.dao.UserDao;
 import com.mygroup.kata.model.User;
-import com.mygroup.kata.Dao.UserDao;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    private final UserDao userDao;
+    private UserDao userDao;
+
+    private BCryptPasswordEncoder passwordEncoder;
 
 
-    public UserServiceImpl(UserDao userDao) {
+    public UserServiceImpl(UserDao userDao, BCryptPasswordEncoder passwordEncoder) {
         this.userDao = userDao;
-
+        this.passwordEncoder = passwordEncoder;
     }
 
 
 
     @Override
     public void addUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.addUser(user);
     }
 
@@ -38,11 +40,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void editUser(User user) {
         userDao.editUser(user);
+
     }
     @Transactional(readOnly=true)
     @Override
-    public Optional<User> findUserById(Long id) {
-        return Optional.ofNullable(userDao.findUserById(id));
+    public User getUserById(Long id) {
+        return userDao.getUserById(id);
     }
     @Transactional(readOnly=true)
     @Override
@@ -54,5 +57,10 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userDao.getUserByUsername(username);
     }
-}
 
+    @Transactional(readOnly = true)
+    @Override
+    public User findUserByName(String name) {
+        return (User) userDao.getUserByUsername(name);
+    }
+}

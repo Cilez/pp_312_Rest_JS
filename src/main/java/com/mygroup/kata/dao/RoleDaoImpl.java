@@ -1,14 +1,13 @@
-package com.mygroup.kata.Dao;
-
+package com.mygroup.kata.dao;
 
 import com.mygroup.kata.model.Role;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Service
+@Repository
 public class RoleDaoImpl implements RoleDao {
     @PersistenceContext
     private EntityManager entityManager;
@@ -31,5 +30,3 @@ public class RoleDaoImpl implements RoleDao {
     }
 
 }
-
-

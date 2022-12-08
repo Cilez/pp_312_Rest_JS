@@ -1,11 +1,8 @@
-package com.mygroup.kata.Dao;
-
-
+package com.mygroup.kata.dao;
 
 import com.mygroup.kata.model.Role;
 
 import java.util.List;
-
 
 public interface RoleDao {
 

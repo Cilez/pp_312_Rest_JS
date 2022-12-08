@@ -1,11 +1,9 @@
-package com.mygroup.kata.Dao;
-
+package com.mygroup.kata.dao;
 
 import com.mygroup.kata.model.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
-
 
 public interface UserDao {
     void addUser(User user);
@@ -14,7 +12,7 @@ public interface UserDao {
 
     void editUser(User user);
 
-    User findUserById(Long id);
+    User getUserById(Long id);
 
     List<User> getAllUsers();
 

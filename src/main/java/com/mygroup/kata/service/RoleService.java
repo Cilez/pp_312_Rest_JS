@@ -1,6 +1,7 @@
 package com.mygroup.kata.service;
 
 
+
 import com.mygroup.kata.model.Role;
 
 import java.util.List;
@@ -12,5 +13,3 @@ public interface RoleService {
     void addRole(Role role);
     List<Role> getAllRoles();
 }
-
-
