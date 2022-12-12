@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
@@ -32,36 +33,47 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**", "/templates/static/**", "/css/**", "/js/**", "/img/**", "/icon/**");
     }
 
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http
+//                .csrf().disable().antMatcher("/**")
+//                .authorizeRequests()
+//
+//                .antMatchers("/admin-panel").hasRole("ADMIN")
+//                .antMatchers("/viewUser").hasAnyRole("ADMIN", "USER")
+//                .antMatchers("/", "/login/**").permitAll()
+//                .anyRequest().authenticated()
+//
+//                .and()
+//                .formLogin().loginPage("/login").permitAll().successHandler(successUserHandler)
+//
+//                .and()
+//                .logout()
+//                .logoutSuccessUrl("/login")
+//
+//                .permitAll()
+//                .and()
+//                .httpBasic();
+//        return http.build();
+//    }
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf()
-                .disable()
+                .csrf().disable().antMatcher("/**")
                 .authorizeRequests()
-                //Доступ только для не зарегистрированных пользователей
-                .antMatchers("/login").not().fullyAuthenticated()
-                //Доступ только для пользователей с ролью Администратор
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                //Доступ для юзера
-                .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
-                //Доступ разрешен всем пользователей
-                .antMatchers("/").permitAll()
-                .antMatchers("/registration").permitAll()
-                .antMatchers("/login").permitAll()
 
-                //Все остальные страницы требуют аутентификации
+                .antMatchers("/admin-panel").hasRole("ADMIN")
+                .antMatchers("/viewUser").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/", "/login/**").permitAll()
                 .anyRequest().authenticated()
-                .and()
-                //Настройка для входа в систему
-                .formLogin().successHandler(successUserHandler)
-                //Перенарпавление на главную страницу после успешного входа
 
-                .permitAll()
+                .and()
+                .formLogin().loginPage("/login").permitAll().successHandler(successUserHandler)
+
                 .and()
                 .logout()
-                .permitAll()
                 .logoutSuccessUrl("/login")
-                .and().csrf().disable();
+        ;
     }
 
 

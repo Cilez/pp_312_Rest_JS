@@ -28,12 +28,9 @@ public class RestController {
 
     // users, roles, allUsers
 
-    @GetMapping("/allUsers")
+    @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> list = userService.getAllUsers();
-//        for (User u : list) {
-//            u.setRoles(new HashSet<>());
-//        }
         return list != null && !list.isEmpty()
                 ? new ResponseEntity<>(list, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -60,25 +57,25 @@ public class RestController {
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/users")
     public ResponseEntity<User> addNewUser(@RequestBody User user) {
         userService.addUser(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/edit/{id}")
+    @PatchMapping("/users/{id}")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         userService.editUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/users/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/oneUser")
+    @GetMapping("/viewUser")
     public ResponseEntity<User> showUser(Authentication auth) {
         return new ResponseEntity<>((User) auth.getPrincipal(), HttpStatus.OK);
     }

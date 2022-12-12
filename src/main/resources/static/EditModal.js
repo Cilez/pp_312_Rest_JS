@@ -9,8 +9,10 @@ async function showEditModal(id) {
     let user = await getUser(id);
     let form = document.forms["formEditUser"];
     form.id.value = user.id;
-    form.age.value = user.age;
     form.username.value = user.username;
+    form.lastName.value = user.lastName;
+    form.age.value = user.age;
+    form.email.value = user.email;
     form.password.value = user.password;
 
 
@@ -34,3 +36,4 @@ async function showEditModal(id) {
             })
         })
 }
+

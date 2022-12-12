@@ -32,9 +32,10 @@ async function newUser() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                id: form.id.value,
-                age: form.age.value,
                 username: form.username.value,
+                lastName: form.lastName.value,
+                age: form.age.value,
+                email: form.email.value,
                 password: form.password.value,
                 roles: newUserRoles
             })
