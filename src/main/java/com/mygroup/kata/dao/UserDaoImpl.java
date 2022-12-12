@@ -1,6 +1,7 @@
 package com.mygroup.kata.dao;
 
 import com.mygroup.kata.model.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -55,4 +56,10 @@ public class UserDaoImpl implements UserDao {
                 .getSingleResult();
     }
 
+    @Override
+    public UserDetails findUserByEmail(String email) {
+        return entityManager.createQuery("SELECT u FROM User u JOIN FETCH u.roles WHERE u.email = :email", User.class)
+                .setParameter("email", email)
+                .getSingleResult();
+    }
 }
