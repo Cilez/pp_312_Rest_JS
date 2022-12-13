@@ -62,8 +62,8 @@ public class RestController {
     }
 
     @PatchMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@RequestBody User user) {
-        userService.editUser(user);
+    public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable Long id) {
+        userService.editUser(user, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

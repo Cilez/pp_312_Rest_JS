@@ -30,13 +30,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-//    @Override
-//    @Transactional
-//    public void addUser(User user) {
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        userDao.addUser(user);
-//    }
-
     @Override
     @Transactional
     public void addUser(User user) {
@@ -54,7 +47,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void editUser(User user) {
+    public void editUser(User user, Long id) {
+        user.setId(id);
         userRepository.save(user);
     }
 
@@ -70,11 +64,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userDao.findUserByEmail(email);
+        return userRepository.findUserByEmail(email);
     }
 
     @Override
     public User findUserByName(String name) {
-        return (User) userDao.getUserByUsername(name);
+        return userRepository.getUserByUsername(name);
     }
 }
