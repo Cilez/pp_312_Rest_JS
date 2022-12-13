@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     @Override
     @Transactional
     public void addUser(User user) {
@@ -41,25 +40,23 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void editUser(User user) {
         userDao.editUser(user);
-
     }
-    @Transactional(readOnly=true)
+
     @Override
     public User getUserById(Long id) {
         return userDao.getUserById(id);
     }
-    @Transactional(readOnly=true)
+
     @Override
     public List<User> getAllUsers() {
         return userDao.getAllUsers();
     }
-    @Transactional(readOnly=true)
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userDao.findUserByEmail(email);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public User findUserByName(String name) {
         return (User) userDao.getUserByUsername(name);
