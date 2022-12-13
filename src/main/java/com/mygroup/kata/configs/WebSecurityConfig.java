@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
@@ -33,29 +32,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/resources/**", "/templates/static/**", "/css/**", "/js/**", "/img/**", "/icon/**");
     }
 
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http
-//                .csrf().disable().antMatcher("/**")
-//                .authorizeRequests()
-//
-//                .antMatchers("/admin-panel").hasRole("ADMIN")
-//                .antMatchers("/viewUser").hasAnyRole("ADMIN", "USER")
-//                .antMatchers("/", "/login/**").permitAll()
-//                .anyRequest().authenticated()
-//
-//                .and()
-//                .formLogin().loginPage("/login").permitAll().successHandler(successUserHandler)
-//
-//                .and()
-//                .logout()
-//                .logoutSuccessUrl("/login")
-//
-//                .permitAll()
-//                .and()
-//                .httpBasic();
-//        return http.build();
-//    }
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity

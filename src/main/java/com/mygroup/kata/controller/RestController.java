@@ -11,7 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -25,8 +24,6 @@ public class RestController {
         this.userService = userService;
         this.roleService = roleService;
     }
-
-    // users, roles, allUsers
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
