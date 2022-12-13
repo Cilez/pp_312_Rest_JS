@@ -1,6 +1,5 @@
 package com.mygroup.kata.service;
 
-import com.mygroup.kata.dao.UserDao;
 import com.mygroup.kata.model.User;
 import com.mygroup.kata.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +14,12 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
-
-    private final UserDao userDao;
     private final UserRepository userRepository;
-
     private final BCryptPasswordEncoder passwordEncoder;
 
 
     @Autowired
-    public UserServiceImpl(UserDao userDao, BCryptPasswordEncoder passwordEncoder, UserRepository u) {
-        this.userDao = userDao;
+    public UserServiceImpl(BCryptPasswordEncoder passwordEncoder, UserRepository u) {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = u;
     }
@@ -36,7 +31,6 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
-
 
 
     @Override
@@ -59,7 +53,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUsers() {
-        return userDao.getAllUsers();
+        return (List<User>) userRepository.findAll();
     }
 
     @Override
