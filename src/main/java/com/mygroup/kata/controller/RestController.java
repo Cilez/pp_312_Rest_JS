@@ -43,7 +43,7 @@ public class RestController {
     }
 
     @GetMapping("/roles/{id}")
-    ResponseEntity<Role> getRoleById(@PathVariable("id") Long id){
+    ResponseEntity<Role> getRoleById(@PathVariable("id") Long id) {
         Optional<Role> role = roleService.getRoleById(id);
         return role.isEmpty()
                 ? new ResponseEntity<>(HttpStatus.NOT_FOUND)

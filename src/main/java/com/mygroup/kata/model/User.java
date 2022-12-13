@@ -30,16 +30,8 @@ public class User implements UserDetails {
     )
     private Set<Role> roles;
 
-    public String getRolesString() {
-        StringBuilder str = new StringBuilder();
-        for (Role role : roles) {
-            str.append(role + " ");
-        }
-        return str.toString();
-    }
 
-
-    public User(){
+    public User() {
 
     }
 
@@ -54,6 +46,14 @@ public class User implements UserDetails {
         this(username, password, age, roles);
         this.lastName = lastName;
         this.email = email;
+    }
+
+    public String getRolesString() {
+        StringBuilder str = new StringBuilder();
+        for (Role role : roles) {
+            str.append(role + " ");
+        }
+        return str.toString();
     }
 
     public String getLastName() {
@@ -147,7 +147,7 @@ public class User implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(username, user.username) ;
+        return Objects.equals(username, user.username);
     }
 
     @Override

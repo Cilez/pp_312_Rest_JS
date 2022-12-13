@@ -15,16 +15,11 @@ import java.util.Set;
 
 @Component
 public class ApplicationRunnerImpl implements ApplicationRunner {
-
-
     private final UserService userService;
-
-
     private final RoleService roleService;
 
     public ApplicationRunnerImpl(UserService userService, RoleService roleService) {
         this.userService = userService;
-
         this.roleService = roleService;
     }
 
@@ -41,12 +36,11 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
             Set<Role> userRole = new HashSet<>();
             admin.ifPresent(adminRole::add);
             user.ifPresent((userRole::add));
-            userService.addUser(new User( "Misha", ("admin"),23, adminRole, "Admin", "misha@email.com" ));
-            userService.addUser(new User( "Dima", ("user"), 32, userRole, "User", "dima@email.com"));
-            userService.addUser(new User("Kostya", ("dimab"), 54,  userRole));
-            userService.addUser(new User("vasyap", ("vasyap"),12, userRole));
-            userService.addUser(new User("kostyap", ("kostyag"),10,userRole));
-
+            userService.addUser(new User("Misha", ("admin"), 23, adminRole, "Admin", "misha@email.com"));
+            userService.addUser(new User("Dima", ("user"), 32, userRole, "User", "dima@email.com"));
+            userService.addUser(new User("Kostya", ("dimab"), 54, userRole));
+            userService.addUser(new User("vasyap", ("vasyap"), 12, userRole));
+            userService.addUser(new User("kostyap", ("kostyag"), 10, userRole));
         }
     }
 }

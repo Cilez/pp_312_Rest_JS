@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
     User getUserByUsername(String username);
+
     @Query("SELECT u FROM User u JOIN FETCH u.roles WHERE u.email = :email")
     UserDetails findUserByEmail(String email);
 }
