@@ -10,16 +10,17 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Component
 public class ApplicationRunnerImpl implements ApplicationRunner {
 
 
-    private UserService userService;
+    private final UserService userService;
 
 
-    private RoleService roleService;
+    private final RoleService roleService;
 
     public ApplicationRunnerImpl(UserService userService, RoleService roleService) {
         this.userService = userService;
@@ -34,12 +35,12 @@ public class ApplicationRunnerImpl implements ApplicationRunner {
         if (users.isEmpty()) {
             roleService.addRole(new Role("ROLE_ADMIN"));
             roleService.addRole(new Role("ROLE_USER"));
-            Role admin = roleService.getRoleById(1L);
-            Role user = roleService.getRoleById(2L);
+            Optional<Role> admin = roleService.getRoleById(1L);
+            Optional<Role> user = roleService.getRoleById(2L);
             Set<Role> adminRole = new HashSet<>();
             Set<Role> userRole = new HashSet<>();
-            adminRole.add(admin);
-            userRole.add(user);
+            admin.ifPresent(adminRole::add);
+            user.ifPresent((userRole::add));
             userService.addUser(new User( "Misha", ("admin"),23, adminRole, "Admin", "misha@email.com" ));
             userService.addUser(new User( "Dima", ("user"), 32, userRole, "User", "dima@email.com"));
             userService.addUser(new User("Kostya", ("dimab"), 54,  userRole));
