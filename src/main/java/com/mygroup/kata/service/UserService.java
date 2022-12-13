@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
     void addUser(User user);
@@ -14,7 +15,7 @@ public interface UserService extends UserDetailsService {
 
     void editUser(User user);
 
-    User getUserById(Long id);
+    Optional<User> getUserById(Long id);
 
     List<User> getAllUsers();
 

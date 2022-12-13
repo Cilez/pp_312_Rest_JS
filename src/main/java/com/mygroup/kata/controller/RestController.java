@@ -12,12 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/api")
 public class RestController {
-    private UserService userService;
-    private RoleService roleService;
+    private final UserService userService;
+    private final RoleService roleService;
 
     @Autowired
     public RestController(UserService userService, RoleService roleService) {
@@ -48,10 +49,10 @@ public class RestController {
 
     @GetMapping("/users/{id}")
     public ResponseEntity<User> showUser(@PathVariable Long id) {
-        User user = userService.getUserById(id);
-        return user != null
-                ? new ResponseEntity<>(user, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        Optional<User> user = userService.getUserById(id);
+        return user.isEmpty()
+                ? new ResponseEntity<>(HttpStatus.NOT_FOUND)
+                : new ResponseEntity<>(user.get(), HttpStatus.OK);
     }
 
     @PostMapping("/users")
